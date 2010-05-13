@@ -43,11 +43,20 @@ static int idCounter = 0;
     [(id) self.view updateInfo];
 }
 
+- (void) addAnotherController
+{
+    Controller *modal = [[Controller alloc] init];
+    NSLog(@"[controller #%i addAnotherController]", idNumber);
+    [self presentModalViewController:modal animated:YES];
+    [modal release];
+}
+
 - (void) displayActionPopupFrom: (id) sender
 {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
         delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil
-        otherButtonTitles:@"Add Another View", @"Reset to Single View", nil];
+        otherButtonTitles:@"Add Another View", @"Reset to Single View", 
+        @"Present Modal Controller", @"Dismiss Modal Controller", nil];
     [sheet showFromRect:[sender frame] inView:[sender superview] animated:YES];
     [sheet release];
 }
@@ -62,6 +71,13 @@ static int idCounter = 0;
         case 1:
             for (UIView *view in additionalViews)
                 [view removeFromSuperview];
+            break;
+        case 2:
+            [self addAnotherController];
+            break;
+        case 3:
+            NSLog(@"[controller #%i dismissModalController]", idNumber);
+            [self dismissModalViewControllerAnimated:YES];
             break;
         default:
             break;
