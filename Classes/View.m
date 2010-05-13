@@ -4,7 +4,15 @@ static NSArray *bgColors = nil;
 static int bgColorIndex  = 0;
 static int idCounter     = 0;
 
+@interface View ()
+- (UILabel*) infoLabel;
+- (UILabel*) idLabel;
+@end
+
 @implementation View
+@synthesize controller;
+
+#pragma mark Initialization
 
 + (void) initialize
 {
@@ -13,39 +21,22 @@ static int idCounter     = 0;
         [UIColor blueColor], nil];
 }
 
-+ (id) aView
-{
-    return [[[self alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]] autorelease];
-}
-
 - (UIColor*) nextColor
 {
     bgColorIndex = (bgColorIndex + 1) % [bgColors count];
     return [bgColors objectAtIndex:bgColorIndex];
 }
 
-- (UILabel*) infoLabel
++ (id) withController: (id) ctrl
 {
-    UILabel *label = [[UILabel alloc] init];
-    [label setFont:[UIFont systemFontOfSize:40]];
-    [label setTextColor:[UIColor whiteColor]];
-    [label setBackgroundColor:[UIColor blackColor]];
-    return [label autorelease];
+    return [[[self alloc] initWithController:ctrl] autorelease];
 }
 
-- (UILabel*) idLabel
+- (id) initWithController: (id) ctrl
 {
-    UILabel *label = [self infoLabel];
-    [label setText:[NSString stringWithFormat:@"View #%i", idNumber]];
-    [label setFont:[UIFont systemFontOfSize:60]];
-    [label setCenter:CGPointMake(100, 100)];
-    [label sizeToFit];
-    return label;
-}
+    [super initWithFrame:[[UIScreen mainScreen] applicationFrame]];
+    controller = ctrl;
 
-- (id) initWithFrame: (CGRect) frame
-{
-    [super initWithFrame:frame];
     [self setBackgroundColor:[self nextColor]];
     idNumber = idCounter++;
     [self addSubview:[self idLabel]];
@@ -70,8 +61,28 @@ static int idCounter     = 0;
     [slider setValue:1];
     [slider setFrame:CGRectMake(500, 900, 200, 40)];
     [self addSubview:slider];
-    
     return self;
+}
+
+#pragma mark Info Labels
+
+- (UILabel*) infoLabel
+{
+    UILabel *label = [[UILabel alloc] init];
+    [label setFont:[UIFont systemFontOfSize:40]];
+    [label setTextColor:[UIColor whiteColor]];
+    [label setBackgroundColor:[UIColor blackColor]];
+    return [label autorelease];
+}
+
+- (UILabel*) idLabel
+{
+    UILabel *label = [self infoLabel];
+    [label setText:[NSString stringWithFormat:@"View #%i", idNumber]];
+    [label setFont:[UIFont systemFontOfSize:60]];
+    [label setCenter:CGPointMake(100, 100)];
+    [label sizeToFit];
+    return label;
 }
 
 - (void) updateInfo

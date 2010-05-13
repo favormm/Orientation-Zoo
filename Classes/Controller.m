@@ -15,7 +15,7 @@ static int idCounter = 0;
 
 - (void) loadView
 {
-    [self setView:[View aView]];
+    [self setView:[View withController:self]];
 }
 
 - (void) viewWillAppear: (BOOL) animated
