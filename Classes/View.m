@@ -62,14 +62,17 @@ static int idCounter     = 0;
 
 - (void) updateInfo
 {
+    BOOL transformIsId = CGAffineTransformIsIdentity(self.transform);
     [frameLabel setText:[NSString stringWithFormat:@"f: %@",
         NSStringFromCGRect(self.frame)]];
+    // “If the transform property is not the identity transform, the value
+    // of this property is undefined and therefore should be ignored.”
+    [frameLabel setTextColor:transformIsId ? [UIColor whiteColor] : [UIColor redColor]];
     [frameLabel sizeToFit];
     [boundsLabel setText:[NSString stringWithFormat:@"b: %@",
         NSStringFromCGRect(self.bounds)]];
     [boundsLabel sizeToFit];
-    [transformLabel setText:[NSString stringWithFormat:@"transform is id: %i",
-        CGAffineTransformIsIdentity(self.transform)]];
+    [transformLabel setText:[NSString stringWithFormat:@"transform is id: %i", transformIsId]];
     [transformLabel sizeToFit];
 }
 
