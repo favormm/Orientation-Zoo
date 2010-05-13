@@ -70,6 +70,13 @@ static int idCounter = 0;
     // intentionally leaking here
 }
 
+- (void) switchViews
+{
+    View *incoming = [View withController:self];
+    [incoming setTransform:[Orientation toTransform:self.interfaceOrientation]];
+    self.view = incoming;
+}
+
 #pragma mark Controls
 
 - (void) displayActionPopupFrom: (id) sender
@@ -87,7 +94,7 @@ static int idCounter = 0;
 {
     switch (button) {
         case 0:
-            self.view = [View withController:self];
+            [self switchViews];
             break;
         case 1:
             [self.view addSubview:[View withController:self]];
