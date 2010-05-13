@@ -1,6 +1,2 @@
-@interface Orientation : NSObject {}
-
-+ (NSString*) toString: (UIInterfaceOrientation) io;
-+ (CGAffineTransform) toTransform: (UIInterfaceOrientation) io;
-
-@end
+NSString *NSStringFromUIOrientation(UIInterfaceOrientation io);
+CGAffineTransform CGAffineTransformFromUIOrientation(UIInterfaceOrientation io);

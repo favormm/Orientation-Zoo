@@ -43,7 +43,7 @@ static int idCounter = 0;
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) io
 {
     NSLog(@"[controller #%i shouldAutorotateTo:%i (== %@)]",
-        idNumber, io, [Orientation toString:io]);
+        idNumber, io, NSStringFromUIOrientation(io));
     return YES;
 }
 
@@ -73,7 +73,7 @@ static int idCounter = 0;
 - (void) switchViews
 {
     View *incoming = [View withController:self];
-    [incoming setTransform:[Orientation toTransform:self.interfaceOrientation]];
+    [incoming setTransform:CGAffineTransformFromUIOrientation(self.interfaceOrientation)];
     self.view = incoming;
 }
 
