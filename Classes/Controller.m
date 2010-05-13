@@ -25,6 +25,8 @@ static int idCounter = 0;
     [self setView:[View withController:self]];
 }
 
+#pragma mark Callbacks and Notifications
+
 - (void) viewWillAppear: (BOOL) animated
 {
     NSLog(@"[controller #%i viewWillAppear:%i]", idNumber, !!animated);
@@ -49,6 +51,8 @@ static int idCounter = 0;
     [(id) self.view updateInfo];
 }
 
+#pragma mark Additional Controllers
+
 - (void) addAnotherController
 {
     Controller *modal = [[Controller alloc] init];
@@ -57,12 +61,23 @@ static int idCounter = 0;
     [modal release];
 }
 
+- (void) attachAnotherControllerByHand
+{
+    Controller *new = [[Controller alloc] init];
+    NSLog(@"[controller #%i attachAnotherControllerByHand]", idNumber);
+    [self.view.window addSubview:new.view];
+    // intentionally leaking here
+}
+
+#pragma mark Controls
+
 - (void) displayActionPopupFrom: (id) sender
 {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
         delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil
         otherButtonTitles:@"Add Another View", @"Reset to Single View", 
-        @"Present Modal Controller", @"Dismiss Modal Controller", nil];
+        @"Present Modal Controller", @"Dismiss Modal Controller",
+        @"Attach Controller by Hand", nil];
     [sheet showFromRect:[sender frame] inView:[sender superview] animated:YES];
     [sheet release];
 }
@@ -84,6 +99,9 @@ static int idCounter = 0;
         case 3:
             NSLog(@"[controller #%i dismissModalController]", idNumber);
             [self dismissModalViewControllerAnimated:YES];
+            break;
+        case 4:
+            [self attachAnotherControllerByHand];
             break;
         default:
             break;
