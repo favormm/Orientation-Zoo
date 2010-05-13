@@ -76,9 +76,9 @@ static int idCounter = 0;
 {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
         delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil
-        otherButtonTitles:@"Add Another View", @"Reset to Single View", 
-        @"Present Modal Controller", @"Dismiss Modal Controller",
-        @"Attach Controller by Hand", nil];
+        otherButtonTitles:@"Switch View", @"Add Another View",
+        @"Reset to Single View", @"Present Modal Controller",
+        @"Dismiss Modal Controller", @"Attach Controller by Hand", nil];
     [sheet showFromRect:[sender frame] inView:[sender superview] animated:YES];
     [sheet release];
 }
@@ -87,22 +87,25 @@ static int idCounter = 0;
 {
     switch (button) {
         case 0:
+            self.view = [View withController:self];
+            break;
+        case 1:
             [self.view addSubview:[View withController:self]];
             [additionalViews addObject:[self.view.subviews lastObject]];
             break;
-        case 1:
+        case 2:
             for (UIView *view in additionalViews)
                 [view removeFromSuperview];
             [additionalViews removeAllObjects];
             break;
-        case 2:
+        case 3:
             [self addAnotherController];
             break;
-        case 3:
+        case 4:
             NSLog(@"[controller #%i dismissModalController]", idNumber);
             [self dismissModalViewControllerAnimated:YES];
             break;
-        case 4:
+        case 5:
             [self attachAnotherControllerByHand];
             break;
         default:
