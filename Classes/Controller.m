@@ -31,6 +31,12 @@ static int idCounter = 0;
     [super viewWillAppear:animated];
 }
 
+- (void) viewWillDisappear: (BOOL) animated
+{
+    NSLog(@"[controller #%i viewWillDisappear:%i]", idNumber, !!animated);
+    [super viewWillDisappear:animated];
+}
+
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) io
 {
     NSLog(@"[controller #%i shouldAutorotateTo:%i (== %@)]",

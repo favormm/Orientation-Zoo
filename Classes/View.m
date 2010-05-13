@@ -131,6 +131,12 @@ static int idCounter     = 0;
     [self updateInfo];
 }
 
+- (void) setTransform: (CGAffineTransform) newTransform
+{
+    NSLog(@"[view #%i setTransform:]", idNumber);
+    [super setTransform:newTransform];
+}
+
 - (void) willMoveToSuperview: (UIView*) newSuperview
 {
     [self updateInfo];
