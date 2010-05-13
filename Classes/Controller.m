@@ -1,4 +1,5 @@
 #import "Controller.h"
+#import "Orientation.h"
 #import "View.h"
 
 static int idCounter = 0;
@@ -27,6 +28,8 @@ static int idCounter = 0;
 
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) io
 {
+    NSLog(@"[controller #%i shouldAutorotateTo:%i (== %@)]",
+        idNumber, io, [Orientation toString:io]);
     return YES;
 }
 
