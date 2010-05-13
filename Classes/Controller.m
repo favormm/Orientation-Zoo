@@ -16,6 +16,7 @@ static int idCounter = 0;
 
 - (void) dealloc
 {
+    NSLog(@"[controller #%i dealloc]", idNumber);
     [additionalViews release];
     [super dealloc];
 }
@@ -92,6 +93,7 @@ static int idCounter = 0;
         case 1:
             for (UIView *view in additionalViews)
                 [view removeFromSuperview];
+            [additionalViews removeAllObjects];
             break;
         case 2:
             [self addAnotherController];

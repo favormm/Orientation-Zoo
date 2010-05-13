@@ -60,6 +60,13 @@ static int idCounter     = 0;
     return self;
 }
 
+- (void) dealloc
+{
+    NSLog(@"[view #%i dealloc]", idNumber);
+    [super dealloc];
+}
+
+
 #pragma mark View Components
 
 - (UILabel*) infoLabel
@@ -135,6 +142,7 @@ static int idCounter     = 0;
 {
     NSLog(@"[view #%i setTransform:]", idNumber);
     [super setTransform:newTransform];
+    [self updateInfo];
 }
 
 - (void) willMoveToSuperview: (UIView*) newSuperview
