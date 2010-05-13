@@ -7,6 +7,8 @@ static int idCounter     = 0;
 @interface View ()
 - (UILabel*) infoLabel;
 - (UILabel*) idLabel;
+- (UISlider*) alphaSlider;
+- (UIButton*) actionButton;
 @end
 
 @implementation View
@@ -53,18 +55,12 @@ static int idCounter     = 0;
     [transformLabel setCenter:CGPointMake(100, 360)];
     [self addSubview:transformLabel];
     
-    UISlider *slider = [[[UISlider alloc] init] autorelease];
-    [slider addTarget:self action:@selector(changeAlphaFrom:)
-        forControlEvents:UIControlEventValueChanged];
-    [slider setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin
-        | UIViewAutoresizingFlexibleTopMargin];
-    [slider setValue:1];
-    [slider setFrame:CGRectMake(500, 900, 200, 40)];
-    [self addSubview:slider];
+    [self addSubview:[self alphaSlider]];
+    [self addSubview:[self actionButton]];
     return self;
 }
 
-#pragma mark Info Labels
+#pragma mark View Components
 
 - (UILabel*) infoLabel
 {
@@ -84,6 +80,33 @@ static int idCounter     = 0;
     [label sizeToFit];
     return label;
 }
+
+- (UISlider*) alphaSlider
+{
+    UISlider *slider = [[UISlider alloc] init];
+    [slider addTarget:self action:@selector(changeAlphaFrom:)
+        forControlEvents:UIControlEventValueChanged];
+    [slider setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin
+        | UIViewAutoresizingFlexibleTopMargin];
+    [slider setValue:1];
+    [slider setFrame:CGRectMake(500, 900, 200, 40)];
+    return [slider autorelease];
+}
+
+- (UIButton*) actionButton
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [button.titleLabel setText:@"Actions"];
+    [button sizeToFit];
+    [button setCenter:CGPointMake(50, 1004-50)];
+    [button setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin
+        | UIViewAutoresizingFlexibleTopMargin];
+    [button addTarget:controller action:@selector(displayActionPopupFrom:)
+        forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
+#pragma mark Updating
 
 - (void) updateInfo
 {

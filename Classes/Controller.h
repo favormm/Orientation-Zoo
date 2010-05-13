@@ -1,6 +1,7 @@
-@interface Controller : UIViewController
+@interface Controller : UIViewController <UIActionSheetDelegate>
 {
     int idNumber;
+    NSMutableArray *additionalViews;
 }
 
 @end
