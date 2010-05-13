@@ -57,6 +57,15 @@ static int idCounter     = 0;
     [transformLabel setCenter:CGPointMake(100, 360)];
     [self addSubview:transformLabel];
     
+    UISlider *slider = [[[UISlider alloc] init] autorelease];
+    [slider addTarget:self action:@selector(changeAlphaFrom:)
+        forControlEvents:UIControlEventValueChanged];
+    [slider setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin
+        | UIViewAutoresizingFlexibleTopMargin];
+    [slider setValue:1];
+    [slider setFrame:CGRectMake(500, 900, 200, 40)];
+    [self addSubview:slider];
+    
     return self;
 }
 
@@ -86,6 +95,11 @@ static int idCounter     = 0;
 - (void) willMoveToSuperview: (UIView*) newSuperview
 {
     [self updateInfo];
+}
+
+- (void) changeAlphaFrom: (UISlider*) slider
+{
+    self.alpha = slider.value;
 }
 
 @end
