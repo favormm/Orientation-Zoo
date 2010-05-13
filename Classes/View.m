@@ -16,7 +16,7 @@ static int idCounter     = 0;
 
 + (void) initialize
 {
-    bgColors = [NSArray arrayWithObjects:
+    bgColors = [[NSArray alloc] initWithObjects:
         [UIColor redColor], [UIColor greenColor],
         [UIColor blueColor], nil];
 }
