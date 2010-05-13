@@ -6,6 +6,7 @@
     UILabel *boundsLabel;
 }
 
++ (id) aView;
 - (void) updateInfo;
 
 @end

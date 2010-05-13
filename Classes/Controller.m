@@ -15,9 +15,7 @@ static int idCounter = 0;
 
 - (void) loadView
 {
-    View *view = [[View alloc] initWithFrame:
-        [[UIScreen mainScreen] applicationFrame]];
-    self.view = [view autorelease];
+    [self setView:[View aView]];
 }
 
 - (void) viewWillAppear: (BOOL) animated

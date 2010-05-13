@@ -9,6 +9,7 @@
 {
     logger = [[NotifyLog alloc] init];
     root = [[Controller alloc] init];
+    [window setBackgroundColor:[UIColor magentaColor]];
     [window addSubview:root.view];
     [window makeKeyAndVisible];
 }

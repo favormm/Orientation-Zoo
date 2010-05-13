@@ -13,6 +13,11 @@ static int idCounter     = 0;
         [UIColor blueColor], nil];
 }
 
++ (id) aView
+{
+    return [[[self alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]] autorelease];
+}
+
 - (UIColor*) nextColor
 {
     bgColorIndex = (bgColorIndex + 1) % [bgColors count];
